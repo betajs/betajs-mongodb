@@ -1,6 +1,6 @@
-Scoped.define("module:Databases.MongoDatabase", [
+Scoped.define("module:MongoDatabase", [
     "data:Databases.Database",
-    "module:Databases.MongoDatabaseTable",
+    "module:MongoDatabaseTable",
     "base:Strings",
     "base:Types",
     "base:Objs",
