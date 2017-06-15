@@ -4,7 +4,7 @@ test("mongo database store", function () {
 	delete global.Promise;
 	/* QUnit Global Promise Polyfill doesn't like MongoDB Global Promise Polyfill. Ugh. */
 
-	var db = new BetaJS.Mongo.Databases.MongoDatabase("mongodb://localhost/betajsmongodb");
+	var db = new BetaJS.Data.Databases.Mongo.MongoDatabase("mongodb://localhost/betajsmongodb");
 	db.getTable("tests").insertRow({x: 5}).success(function (object) {
 		ok(!!object._id);
 		QUnit.equal(typeof object._id, "string");
