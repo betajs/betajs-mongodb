@@ -4,7 +4,7 @@ test("mongo database store default id", function () {
 	delete global.Promise;
 	/* QUnit Global Promise Polyfill doesn't like MongoDB Global Promise Polyfill. Ugh. */
 
-	var mongodb = new BetaJS.Mongo.Databases.MongoDatabase("mongodb://localhost/betajsmongodb");
+	var mongodb = new BetaJS.Data.Databases.Mongo.MongoDatabase("mongodb://localhost/betajsmongodb");
 	var store = new BetaJS.Data.Stores.DatabaseStore(mongodb, "tests");
 	store.insert({x: 5}).success(function (object) {
 		ok(!!object._id);
@@ -38,7 +38,7 @@ test("mongo database store other id, separate ids", function () {
     delete global.Promise;
     /* QUnit Global Promise Polyfill doesn't like MongoDB Global Promise Polyfill. Ugh. */
 
-    var mongodb = new BetaJS.Mongo.Databases.MongoDatabase("mongodb://localhost/betajsmongodb");
+    var mongodb = new BetaJS.Data.Databases.Mongo.MongoDatabase("mongodb://localhost/betajsmongodb");
     var store = new BetaJS.Data.Stores.DatabaseStore(mongodb, "tests", "id", true);
     store.insert({x: 5, id: 1234}).success(function (object) {
         QUnit.equal(object.id, 1234);
@@ -71,7 +71,7 @@ test("mongo database store other id, map", function () {
     delete global.Promise;
     /* QUnit Global Promise Polyfill doesn't like MongoDB Global Promise Polyfill. Ugh. */
 
-    var mongodb = new BetaJS.Mongo.Databases.MongoDatabase("mongodb://localhost/betajsmongodb");
+    var mongodb = new BetaJS.Data.Databases.Mongo.MongoDatabase("mongodb://localhost/betajsmongodb");
     var store = new BetaJS.Data.Stores.DatabaseStore(mongodb, "tests", "id");
     store.insert({x: 5}).success(function (object) {
         ok(!!object.id);

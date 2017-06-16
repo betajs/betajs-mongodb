@@ -1,4 +1,4 @@
-Scoped.define("module:Databases.MongoDatabaseTable", [
+Scoped.define("module:MongoDatabaseTable", [
     "data:Databases.DatabaseTable",
     "base:Promise",
     "base:Objs",
