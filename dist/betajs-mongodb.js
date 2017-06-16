@@ -1,5 +1,5 @@
 /*!
-betajs-mongodb - v1.0.0 - 2017-06-08
+betajs-mongodb - v1.0.0 - 2017-06-16
 Copyright (c) Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1004,14 +1004,14 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-mongodb - v1.0.0 - 2017-06-08
+betajs-mongodb - v1.0.0 - 2017-06-16
 Copyright (c) Oliver Friedmann
 Apache-2.0 Software License.
 */
 
 (function () {
 var Scoped = this.subScope();
-Scoped.binding('module', 'global:BetaJS.Mongo');
+Scoped.binding('module', 'global:BetaJS.Data.Databases.Mongo');
 Scoped.binding('base', 'global:BetaJS');
 Scoped.binding('data', 'global:BetaJS.Data');
 Scoped.define("module:", function () {
@@ -1022,7 +1022,7 @@ Scoped.define("module:", function () {
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
 Scoped.assumeVersion('data:version', '~1.0.41');
-Scoped.define("module:Databases.MongoDatabaseTable", [
+Scoped.define("module:MongoDatabaseTable", [
     "data:Databases.DatabaseTable",
     "base:Promise",
     "base:Objs",
@@ -1122,9 +1122,9 @@ Scoped.define("module:Databases.MongoDatabaseTable", [
 
     });
 });
-Scoped.define("module:Databases.MongoDatabase", [
+Scoped.define("module:MongoDatabase", [
     "data:Databases.Database",
-    "module:Databases.MongoDatabaseTable",
+    "module:MongoDatabaseTable",
     "base:Strings",
     "base:Types",
     "base:Objs",
