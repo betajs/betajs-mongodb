@@ -72,13 +72,13 @@ Scoped.define("module:MongoDatabaseTable", [
             }, this);
         },
 
-        _removeRow: function(query, callbacks) {
+        _removeRow: function(query) {
             return this.table().mapSuccess(function(table) {
                 return Promise.funcCallback(table, table.remove, query);
             }, this);
         },
 
-        _updateRow: function(query, row, callbacks) {
+        _updateRow: function(query, row) {
             return this.table().mapSuccess(function(table) {
                 return Promise.funcCallback(table, table.update, query, {
                     "$set": row
