@@ -1,6 +1,6 @@
 {
 	"name": "betajs-mongodb",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "BetaJS-MongoDB is a MongoDB wrapper for BetaJS.",
 	"contributors": ["Oliver Friedmann"],
 	"devDependencies": {
@@ -34,6 +34,7 @@
 		"type": "git",
 		"url": "git://github.com/betajs/betajs-mongodb.git"
 	},
+	"main": "dist/betajs-mongodb.js",
 	"meta": {
 		"guid": "1f507e0c-602b-4372-b067-4e19442f28f4",
 		"installdoc": "docsrc/common/install.md",
@@ -54,10 +55,10 @@
 			"betajs-data": "https://github.com/betajs/betajs-data"
 		},
 		"cdn": {
-			"betajs-sql.js": "http://cdn.rawgit.com/betajs/betajs-sql/master/dist/betajs-sql.js",
-			"betajs-sql.min.js": "http://cdn.rawgit.com/betajs/betajs-sql/master/dist/betajs-sql.min.js",
-			"betajs-sql-noscoped.js": "http://cdn.rawgit.com/betajs/betajs-sql/master/dist/betajs-sql-noscoped.js",
-			"betajs-sql-noscoped.min.js": "http://cdn.rawgit.com/betajs/betajs-sql/master/dist/betajs-sql-noscoped.min.js"
+			"betajs-mongodb.js": "http://cdn.rawgit.com/betajs/betajs-mongodb/master/dist/betajs-mongodb.js",
+			"betajs-mongodb.min.js": "http://cdn.rawgit.com/betajs/betajs-mongodb/master/dist/betajs-mongodb.min.js",
+			"betajs-mongodb-noscoped.js": "http://cdn.rawgit.com/betajs/betajs-mongodb/master/dist/betajs-mongodb-noscoped.js",
+			"betajs-mongodb-noscoped.min.js": "http://cdn.rawgit.com/betajs/betajs-mongodb/master/dist/betajs-mongodb-noscoped.min.js"
 		}
 	} 
 }

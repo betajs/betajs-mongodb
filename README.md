@@ -1,4 +1,4 @@
-# betajs-mongodb 1.0.1
+# betajs-mongodb 1.0.2
 [![Code Climate](https://codeclimate.com/github/betajs/betajs-mongodb/badges/gpa.svg)](https://codeclimate.com/github/betajs/betajs-mongodb)
 [![NPM](https://img.shields.io/npm/v/betajs-mongodb.svg?style=flat)](https://www.npmjs.com/package/betajs-mongodb)
 
@@ -98,10 +98,10 @@ Once you have instantiated your `database` instance, you can create a correspond
 ## CDN
 | Resource | URL |
 | :----- | -------: |
-| betajs-sql.js | [http://cdn.rawgit.com/betajs/betajs-sql/master/dist/betajs-sql.js](http://cdn.rawgit.com/betajs/betajs-sql/master/dist/betajs-sql.js) |
-| betajs-sql.min.js | [http://cdn.rawgit.com/betajs/betajs-sql/master/dist/betajs-sql.min.js](http://cdn.rawgit.com/betajs/betajs-sql/master/dist/betajs-sql.min.js) |
-| betajs-sql-noscoped.js | [http://cdn.rawgit.com/betajs/betajs-sql/master/dist/betajs-sql-noscoped.js](http://cdn.rawgit.com/betajs/betajs-sql/master/dist/betajs-sql-noscoped.js) |
-| betajs-sql-noscoped.min.js | [http://cdn.rawgit.com/betajs/betajs-sql/master/dist/betajs-sql-noscoped.min.js](http://cdn.rawgit.com/betajs/betajs-sql/master/dist/betajs-sql-noscoped.min.js) |
+| betajs-mongodb.js | [http://cdn.rawgit.com/betajs/betajs-mongodb/master/dist/betajs-mongodb.js](http://cdn.rawgit.com/betajs/betajs-mongodb/master/dist/betajs-mongodb.js) |
+| betajs-mongodb.min.js | [http://cdn.rawgit.com/betajs/betajs-mongodb/master/dist/betajs-mongodb.min.js](http://cdn.rawgit.com/betajs/betajs-mongodb/master/dist/betajs-mongodb.min.js) |
+| betajs-mongodb-noscoped.js | [http://cdn.rawgit.com/betajs/betajs-mongodb/master/dist/betajs-mongodb-noscoped.js](http://cdn.rawgit.com/betajs/betajs-mongodb/master/dist/betajs-mongodb-noscoped.js) |
+| betajs-mongodb-noscoped.min.js | [http://cdn.rawgit.com/betajs/betajs-mongodb/master/dist/betajs-mongodb-noscoped.min.js](http://cdn.rawgit.com/betajs/betajs-mongodb/master/dist/betajs-mongodb-noscoped.min.js) |
 
 
 
