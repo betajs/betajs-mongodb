@@ -3,7 +3,7 @@ We provide a simple abstraction for databases and tables, with a concrete implem
 First, you instantiate a database, e.g. a MongoDB:
 
 ```javascript
-	var database = new BetaJS.Data.Databases.MongoDatabase("mongodb://localhost/database");
+	var database = new BetaJS.Data.Databases.Mongo.MongoDatabase("mongodb://localhost/database");
 ```
  
 The `MongoDatabase` class inherits from the abstract `Database` class.
@@ -37,5 +37,5 @@ Database Stores allow you to access a database table through the abstract of a `
 Once you have instantiated your `database` instance, you can create a corresponding `Store` for a table as follows, e.g. for a MongoDB:
 
 ```javascript
-	var store = new BetaJS.Data.Stores.MongoDatabaseStore(database, "my-database-table");
+	var store = new BetaJS.Data.Stores.DatabaseStore(database, "my-database-table");
 ```
