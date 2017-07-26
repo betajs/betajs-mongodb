@@ -84,7 +84,6 @@ test("mongo database store other id, map", function () {
                 QUnit.equal(obj.y, 7);
                 store.remove(object.id).success(function () {
                     store.get(object.id).success(function (result) {
-                        console.log(obj);
                         QUnit.equal(result, null);
                         start();
                         /* QUnit Global Promise Polyfill doesn't like MongoDB Global Promise Polyfill. Ugh. */
