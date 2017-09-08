@@ -42,9 +42,7 @@ Scoped.define("module:MongoDatabase", [
                     return Promise.value(this.__mongodb);
                 var promise = Promise.create();
                 this.mongo_module.MongoClient.connect('mongodb://' + this.__dbUri, {
-                    server: {
-                        'auto_reconnect': true
-                    }
+                    autoReconnect: true
                 }, promise.asyncCallbackFunc());
                 return promise.success(function(db) {
                     this.__mongodb = db;
