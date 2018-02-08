@@ -21,9 +21,7 @@ module.exports = function(grunt) {
 		.uglifyTask('uglify-scoped', 'dist/' + dist + '.js', 'dist/' + dist + '.min.js')
 		.packageTask()
         .jsbeautifyTask(null, "src/*.js")
-        .qunitTask(null, './dist/' + dist + '-noscoped.js',
-            grunt.file.expand("./tests/*/*.js"),
-            [require.resolve("betajs-scoped/dist/scoped.js"), require.resolve("betajs/dist/beta-noscoped.js"), require.resolve("betajs-data/dist/betajs-data-noscoped.js")])
+        .qunitjsTask(null, 'tests/qunitjs-node.js')
 
 		/* Testing */
 		.closureTask(null, [require.resolve("betajs-scoped"), require.resolve("betajs"), require.resolve("betajs-data"), "./dist/betajs-sql-noscoped.js"])

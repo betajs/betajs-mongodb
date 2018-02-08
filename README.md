@@ -1,4 +1,4 @@
-# betajs-mongodb 1.0.2
+# betajs-mongodb 1.0.3
 [![Code Climate](https://codeclimate.com/github/betajs/betajs-mongodb/badges/gpa.svg)](https://codeclimate.com/github/betajs/betajs-mongodb)
 [![NPM](https://img.shields.io/npm/v/betajs-mongodb.svg?style=flat)](https://www.npmjs.com/package/betajs-mongodb)
 
@@ -92,7 +92,7 @@ Once you have instantiated your `database` instance, you can create a correspond
 ## Compatability
 | Target | Versions |
 | :----- | -------: |
-| NodeJS | 0.10 - Latest |
+| NodeJS | 4.0 - Latest |
 
 
 ## CDN

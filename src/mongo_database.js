@@ -44,10 +44,19 @@ Scoped.define("module:MongoDatabase", [
                 this.mongo_module.MongoClient.connect('mongodb://' + this.__dbUri, {
                     autoReconnect: true
                 }, promise.asyncCallbackFunc());
-                return promise.success(function(db) {
-                    this.__mongodb = db;
+                return promise.mapSuccess(function(client) {
+                    this.__mongodb = client.db(this.__dbObject.database);
+                    this.__client = client;
+                    return this.__mongodb;
                 }, this);
+            },
+
+            destroy: function() {
+                if (this.__client)
+                    this.__client.close();
+                inherited.destroy.call(this);
             }
+
         };
 
     }, {

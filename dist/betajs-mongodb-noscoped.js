@@ -1,5 +1,5 @@
 /*!
-betajs-mongodb - v1.0.1 - 2017-06-16
+betajs-mongodb - v1.0.3 - 2018-02-08
 Copyright (c) Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -12,7 +12,7 @@ Scoped.binding('data', 'global:BetaJS.Data');
 Scoped.define("module:", function () {
 	return {
     "guid": "1f507e0c-602b-4372-b067-4e19442f28f4",
-    "version": "1.0.1"
+    "version": "1.0.3"
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -91,13 +91,21 @@ Scoped.define("module:MongoDatabaseTable", [
             }, this);
         },
 
-        _removeRow: function(query, callbacks) {
+        _insertRows: function(rows) {
+            return this.table().mapSuccess(function(table) {
+                return Promise.funcCallback(table, table.insertMany, rows).mapSuccess(function(result) {
+                    return row;
+                }, this);
+            }, this);
+        },
+
+        _removeRow: function(query) {
             return this.table().mapSuccess(function(table) {
                 return Promise.funcCallback(table, table.remove, query);
             }, this);
         },
 
-        _updateRow: function(query, row, callbacks) {
+        _updateRow: function(query, row) {
             return this.table().mapSuccess(function(table) {
                 return Promise.funcCallback(table, table.update, query, {
                     "$set": row
@@ -161,14 +169,21 @@ Scoped.define("module:MongoDatabase", [
                     return Promise.value(this.__mongodb);
                 var promise = Promise.create();
                 this.mongo_module.MongoClient.connect('mongodb://' + this.__dbUri, {
-                    server: {
-                        'auto_reconnect': true
-                    }
+                    autoReconnect: true
                 }, promise.asyncCallbackFunc());
-                return promise.success(function(db) {
-                    this.__mongodb = db;
+                return promise.mapSuccess(function(client) {
+                    this.__mongodb = client.db(this.__dbObject.database);
+                    this.__client = client;
+                    return this.__mongodb;
                 }, this);
+            },
+
+            destroy: function() {
+                if (this.__client)
+                    this.__client.close();
+                inherited.destroy.call(this);
             }
+
         };
 
     }, {
