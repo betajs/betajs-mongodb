@@ -1,63 +1,65 @@
 {
-	"name": "betajs-mongodb",
-	"version": "1.0.3",
-	"description": "BetaJS-MongoDB is a MongoDB wrapper for BetaJS.",
-	"contributors": ["Oliver Friedmann"],
-	"devDependencies": {
-		"lodash": "",
-		"grunt": "",
-		"grunt-contrib-jshint": "",
-		"grunt-contrib-concat": "",
-		"grunt-contrib-uglify": "~2.3.0",
-		"grunt-contrib-clean": "",
-		"grunt-preprocess": "",
-		"grunt-git-revision-count": "",
-		"grunt-closure-tools": "",
-		"qunitjs": "",
-		"grunt-wget": "",
-		"grunt-jsdoc": "",
-		"grunt-shell": "",
-		"grunt-template": "",
-		"grunt-githooks": "",
-		"grunt-betajs-docs-compile": "",
-		"betajs-scoped": "~0.0.13",
-		"betajs-compile": "~0.0.28",
-		"js-beautify": ""
-	},
-	"dependencies" : {
-		"betajs": "~1.0.96",
-		"betajs-data": "~1.0.41",
-		"mongodb": ""
-	},
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/betajs/betajs-mongodb.git"
-	},
-	"main": "dist/betajs-mongodb.js",
-	"meta": {
-		"guid": "1f507e0c-602b-4372-b067-4e19442f28f4",
-		"installdoc": "docsrc/common/install.md",
-		"summarydoc": "docsrc/common/summary.md",
-		"badges": {
-			"codeclimate": true,
-			"travis": false,
-			"npm": true
-		},
-		"compatability": {
-			"NodeJS": "4.0 - Latest"
-		},
-		"weakDependencies": {
-			"betajs-scoped": "https://github.com/betajs/betajs-scoped"
-		},
-		"dependencies": {
-			"betajs": "https://github.com/betajs/betajs",
-			"betajs-data": "https://github.com/betajs/betajs-data"
-		},
-		"cdn": {
-			"betajs-mongodb.js": "http://cdn.rawgit.com/betajs/betajs-mongodb/master/dist/betajs-mongodb.js",
-			"betajs-mongodb.min.js": "http://cdn.rawgit.com/betajs/betajs-mongodb/master/dist/betajs-mongodb.min.js",
-			"betajs-mongodb-noscoped.js": "http://cdn.rawgit.com/betajs/betajs-mongodb/master/dist/betajs-mongodb-noscoped.js",
-			"betajs-mongodb-noscoped.min.js": "http://cdn.rawgit.com/betajs/betajs-mongodb/master/dist/betajs-mongodb-noscoped.min.js"
-		}
-	} 
+    "name": "betajs-mongodb",
+    "version": "1.0.4",
+    "description": "BetaJS-MongoDB is a MongoDB wrapper for BetaJS.",
+    "contributors": [
+        "Oliver Friedmann"
+    ],
+    "devDependencies": {
+        "lodash": "",
+        "grunt": "",
+        "grunt-contrib-jshint": "",
+        "grunt-contrib-concat": "",
+        "grunt-contrib-uglify": "~2.3.0",
+        "grunt-contrib-clean": "",
+        "grunt-preprocess": "",
+        "grunt-git-revision-count": "",
+        "grunt-closure-tools": "",
+        "qunitjs": "",
+        "grunt-wget": "",
+        "grunt-jsdoc": "",
+        "grunt-shell": "",
+        "grunt-template": "",
+        "grunt-githooks": "",
+        "grunt-betajs-docs-compile": "",
+        "betajs-scoped": "~0.0.13",
+        "betajs-compile": "~0.0.28",
+        "js-beautify": ""
+    },
+    "dependencies": {
+        "betajs": "~1.0.96",
+        "betajs-data": "~1.0.41",
+        "mongodb": ""
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/betajs/betajs-mongodb.git"
+    },
+    "main": "dist/betajs-mongodb.js",
+    "meta": {
+        "guid": "1f507e0c-602b-4372-b067-4e19442f28f4",
+        "installdoc": "docsrc/common/install.md",
+        "summarydoc": "docsrc/common/summary.md",
+        "badges": {
+            "codeclimate": true,
+            "travis": false,
+            "npm": true
+        },
+        "compatability": {
+            "NodeJS": "4.0 - Latest"
+        },
+        "weakDependencies": {
+            "betajs-scoped": "https://github.com/betajs/betajs-scoped"
+        },
+        "dependencies": {
+            "betajs": "https://github.com/betajs/betajs",
+            "betajs-data": "https://github.com/betajs/betajs-data"
+        },
+        "cdn": {
+            "betajs-mongodb.js": "http://cdn.rawgit.com/betajs/betajs-mongodb/master/dist/betajs-mongodb.js",
+            "betajs-mongodb.min.js": "http://cdn.rawgit.com/betajs/betajs-mongodb/master/dist/betajs-mongodb.min.js",
+            "betajs-mongodb-noscoped.js": "http://cdn.rawgit.com/betajs/betajs-mongodb/master/dist/betajs-mongodb-noscoped.js",
+            "betajs-mongodb-noscoped.min.js": "http://cdn.rawgit.com/betajs/betajs-mongodb/master/dist/betajs-mongodb-noscoped.min.js"
+        }
+    }
 }

@@ -62,6 +62,8 @@ Scoped.define("module:MongoDatabase", [
     }, {
 
         uriToObject: function(uri) {
+            // Do not confuse URI parsing when multiple hosts are giving
+            uri = uri.replace(/,[^\/]+/, "");
             var parsed = Uri.parse(uri);
             return {
                 database: Strings.strip_start(parsed.path, "/"),

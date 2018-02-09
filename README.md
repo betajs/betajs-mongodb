@@ -1,4 +1,4 @@
-# betajs-mongodb 1.0.3
+# betajs-mongodb 1.0.4
 [![Code Climate](https://codeclimate.com/github/betajs/betajs-mongodb/badges/gpa.svg)](https://codeclimate.com/github/betajs/betajs-mongodb)
 [![NPM](https://img.shields.io/npm/v/betajs-mongodb.svg?style=flat)](https://www.npmjs.com/package/betajs-mongodb)
 
