@@ -102,6 +102,12 @@ Scoped.define("module:MongoDatabaseTable", [
             this.table().success(function(table) {
                 table.ensureIndex(Objs.objectBy(key, 1));
             });
+        },
+
+        _renameTable: function(newName) {
+            return this.table().mapSuccess(function(table) {
+                return Promise.funcCallback(table, table.rename, newName);
+            });
         }
 
     });

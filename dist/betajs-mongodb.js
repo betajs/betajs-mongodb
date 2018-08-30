@@ -1,5 +1,5 @@
 /*!
-betajs-mongodb - v1.0.4 - 2018-02-09
+betajs-mongodb - v1.0.5 - 2018-08-30
 Copyright (c) Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1009,7 +1009,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-mongodb - v1.0.4 - 2018-02-09
+betajs-mongodb - v1.0.5 - 2018-08-30
 Copyright (c) Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1022,7 +1022,7 @@ Scoped.binding('data', 'global:BetaJS.Data');
 Scoped.define("module:", function () {
 	return {
     "guid": "1f507e0c-602b-4372-b067-4e19442f28f4",
-    "version": "1.0.4"
+    "version": "1.0.5"
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -1130,6 +1130,12 @@ Scoped.define("module:MongoDatabaseTable", [
             obj[key] = 1;
             this.table().success(function(table) {
                 table.ensureIndex(Objs.objectBy(key, 1));
+            });
+        },
+
+        _renameTable: function(newName) {
+            return this.table().mapSuccess(function(table) {
+                return Promise.funcCallback(table, table.rename, newName);
             });
         }
 
