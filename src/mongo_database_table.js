@@ -66,7 +66,7 @@ Scoped.define("module:MongoDatabaseTable", [
 
         _insertRow: function(row) {
             return this.table().mapSuccess(function(table) {
-                return Promise.funcCallback(table, table.insert, row).mapSuccess(function(result) {
+                return Promise.funcCallback(table, table.insertOne, row).mapSuccess(function(result) {
                     return row;
                 }, this);
             }, this);
@@ -88,7 +88,7 @@ Scoped.define("module:MongoDatabaseTable", [
 
         _updateRow: function(query, row) {
             return this.table().mapSuccess(function(table) {
-                return Promise.funcCallback(table, table.update, query, {
+                return Promise.funcCallback(table, table.updateOne, query, {
                     "$set": row
                 }).mapSuccess(function() {
                     return row;
