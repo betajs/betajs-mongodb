@@ -1,5 +1,5 @@
 /*!
-betajs-mongodb - v1.0.5 - 2018-08-30
+betajs-mongodb - v1.0.6 - 2018-09-08
 Copyright (c) Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -12,7 +12,7 @@ Scoped.binding('data', 'global:BetaJS.Data');
 Scoped.define("module:", function () {
 	return {
     "guid": "1f507e0c-602b-4372-b067-4e19442f28f4",
-    "version": "1.0.5"
+    "version": "1.0.6"
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -85,7 +85,7 @@ Scoped.define("module:MongoDatabaseTable", [
 
         _insertRow: function(row) {
             return this.table().mapSuccess(function(table) {
-                return Promise.funcCallback(table, table.insert, row).mapSuccess(function(result) {
+                return Promise.funcCallback(table, table.insertOne, row).mapSuccess(function(result) {
                     return row;
                 }, this);
             }, this);
@@ -107,7 +107,7 @@ Scoped.define("module:MongoDatabaseTable", [
 
         _updateRow: function(query, row) {
             return this.table().mapSuccess(function(table) {
-                return Promise.funcCallback(table, table.update, query, {
+                return Promise.funcCallback(table, table.updateOne, query, {
                     "$set": row
                 }).mapSuccess(function() {
                     return row;
