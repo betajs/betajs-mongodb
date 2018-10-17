@@ -14,6 +14,7 @@ Scoped.define("module:MongoDatabaseTable", [
                 inherited.constructor.apply(this, arguments);
                 this._table_options.idkeys = this._table_options.idkeys || [];
                 this._table_options.idkeys.unshift("_id");
+                this._table_options.datekeys = this._table_options.datekeys || [];
             },
 
             table: function() {
@@ -30,11 +31,17 @@ Scoped.define("module:MongoDatabaseTable", [
             },
 
             _encode: function(data) {
-                data = Objs.clone(data, 1);
+                data = Objs.map(data, function(value) {
+                    return Types.is_object(value) ? this._encode(value) : value;
+                }, this);
                 var objid = this._database.mongo_object_id();
                 this._table_options.idkeys.forEach(function(key) {
                     if (key in data && !Types.is_object(data[key]))
                         data[key] = new objid(data[key] + "");
+                }, this);
+                this._table_options.datekeys.forEach(function(key) {
+                    if (key in data && !Types.is_object(data[key]))
+                        data[key] = new Date(data[key]);
                 }, this);
                 return data;
             },
@@ -44,6 +51,10 @@ Scoped.define("module:MongoDatabaseTable", [
                 this._table_options.idkeys.forEach(function(key) {
                     if (key in data && Types.is_object(data[key]))
                         data[key] = data[key] + "";
+                }, this);
+                this._table_options.datekeys.forEach(function(key) {
+                    if (key in data && Types.is_object(data[key]))
+                        data[key] = data[key].getTime();
                 }, this);
                 return data;
             },

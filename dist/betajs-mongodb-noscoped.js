@@ -1,5 +1,5 @@
 /*!
-betajs-mongodb - v1.0.7 - 2018-09-15
+betajs-mongodb - v1.0.8 - 2018-10-16
 Copyright (c) Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -12,7 +12,7 @@ Scoped.binding('data', 'global:BetaJS.Data');
 Scoped.define("module:", function () {
 	return {
     "guid": "1f507e0c-602b-4372-b067-4e19442f28f4",
-    "version": "1.0.7"
+    "version": "1.0.8"
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -33,6 +33,7 @@ Scoped.define("module:MongoDatabaseTable", [
                 inherited.constructor.apply(this, arguments);
                 this._table_options.idkeys = this._table_options.idkeys || [];
                 this._table_options.idkeys.unshift("_id");
+                this._table_options.datekeys = this._table_options.datekeys || [];
             },
 
             table: function() {
@@ -49,11 +50,17 @@ Scoped.define("module:MongoDatabaseTable", [
             },
 
             _encode: function(data) {
-                data = Objs.clone(data, 1);
+                data = Objs.map(data, function(value) {
+                    return Types.is_object(value) ? this._encode(value) : value;
+                }, this);
                 var objid = this._database.mongo_object_id();
                 this._table_options.idkeys.forEach(function(key) {
                     if (key in data && !Types.is_object(data[key]))
                         data[key] = new objid(data[key] + "");
+                }, this);
+                this._table_options.datekeys.forEach(function(key) {
+                    if (key in data && !Types.is_object(data[key]))
+                        data[key] = new Date(data[key]);
                 }, this);
                 return data;
             },
@@ -63,6 +70,10 @@ Scoped.define("module:MongoDatabaseTable", [
                 this._table_options.idkeys.forEach(function(key) {
                     if (key in data && Types.is_object(data[key]))
                         data[key] = data[key] + "";
+                }, this);
+                this._table_options.datekeys.forEach(function(key) {
+                    if (key in data && Types.is_object(data[key]))
+                        data[key] = data[key].getTime();
                 }, this);
                 return data;
             },
