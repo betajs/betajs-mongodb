@@ -1,4 +1,4 @@
-# betajs-mongodb 1.0.8
+# betajs-mongodb 1.0.10
 [![Code Climate](https://codeclimate.com/github/betajs/betajs-mongodb/badges/gpa.svg)](https://codeclimate.com/github/betajs/betajs-mongodb)
 [![NPM](https://img.shields.io/npm/v/betajs-mongodb.svg?style=flat)](https://www.npmjs.com/package/betajs-mongodb)
 
@@ -80,11 +80,11 @@ Once you have instantiated your `database` instance, you can create a correspond
 ## Links
 | Resource   | URL |
 | :--------- | --: |
-| Homepage   | [http://betajs.com](http://betajs.com) |
+| Homepage   | [https://betajs.com](https://betajs.com) |
 | Git        | [git://github.com/betajs/betajs-mongodb.git](git://github.com/betajs/betajs-mongodb.git) |
 | Repository | [https://github.com/betajs/betajs-mongodb](https://github.com/betajs/betajs-mongodb) |
-| Blog       | [http://blog.betajs.com](http://blog.betajs.com) | 
-| Twitter    | [http://twitter.com/thebetajs](http://twitter.com/thebetajs) | 
+| Blog       | [https://blog.betajs.com](https://blog.betajs.com) | 
+| Twitter    | [https://twitter.com/thebetajs](https://twitter.com/thebetajs) | 
  
 
 

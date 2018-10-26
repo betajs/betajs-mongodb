@@ -75,3 +75,29 @@ QUnit.test("mongo database store other id, map", function (assert) {
         });
     });
 });
+
+QUnit.test("mongo database null property", function (assert) {
+    var done = assert.async();
+    var mongodb = new BetaJS.Data.Databases.Mongo.MongoDatabase("mongodb://localhost/betajsmongodb");
+    var store = new BetaJS.Data.Stores.DatabaseStore(mongodb, "tests");
+    store.insert({x: null}).success(function (object) {
+        assert.ok(!!object._id);
+        assert.equal(typeof object._id, "string");
+        assert.equal(object.x, null);
+        store.update(object._id, {
+            x: 7
+        }).success(function (row) {
+            assert.equal(row.x, 7);
+            store.get(object._id).success(function (obj) {
+                assert.equal(obj.x, 7);
+                store.remove(object._id).success(function () {
+                    store.get(object._id).success(function (result) {
+                        assert.equal(result, null);
+                        mongodb.destroy();
+                        done();
+                    });
+                });
+            });
+        });
+    });
+});
