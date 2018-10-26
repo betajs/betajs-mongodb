@@ -1,5 +1,5 @@
 /*!
-betajs-mongodb - v1.0.8 - 2018-10-17
+betajs-mongodb - v1.0.10 - 2018-10-26
 Copyright (c) Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -12,7 +12,8 @@ Scoped.binding('data', 'global:BetaJS.Data');
 Scoped.define("module:", function () {
 	return {
     "guid": "1f507e0c-602b-4372-b067-4e19442f28f4",
-    "version": "1.0.8"
+    "version": "1.0.10",
+    "datetime": 1540584557468
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -50,8 +51,10 @@ Scoped.define("module:MongoDatabaseTable", [
             },
 
             _encode: function(data) {
+                if (!data)
+                    return data;
                 data = Objs.map(data, function(value) {
-                    return Types.is_object(value) && !value._bsontype ? this._encode(value) : value;
+                    return value && Types.is_object(value) && !value._bsontype ? this._encode(value) : value;
                 }, this);
                 var objid = this._database.mongo_object_id();
                 this._table_options.idkeys.forEach(function(key) {

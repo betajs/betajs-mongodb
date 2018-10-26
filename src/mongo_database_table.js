@@ -31,8 +31,10 @@ Scoped.define("module:MongoDatabaseTable", [
             },
 
             _encode: function(data) {
+                if (!data)
+                    return data;
                 data = Objs.map(data, function(value) {
-                    return Types.is_object(value) && !value._bsontype ? this._encode(value) : value;
+                    return value && Types.is_object(value) && !value._bsontype ? this._encode(value) : value;
                 }, this);
                 var objid = this._database.mongo_object_id();
                 this._table_options.idkeys.forEach(function(key) {

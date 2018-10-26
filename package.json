@@ -1,5 +1,5 @@
 {
-    "homepage": "http://betajs.com",
+    "homepage": "https://betajs.com",
     "license": "Apache-2.0",
     "licenses": [
         {
@@ -15,7 +15,7 @@
         "url": "https://github.com/betajs/betajs-mongodb/issues"
     },
     "name": "betajs-mongodb",
-    "version": "1.0.9",
+    "version": "1.0.10",
     "description": "BetaJS-MongoDB is a MongoDB wrapper for BetaJS.",
     "contributors": [
         "Oliver Friedmann"
@@ -52,8 +52,8 @@
     },
     "main": "dist/betajs-mongodb.js",
     "meta": {
-        "blog": "http://blog.betajs.com",
-        "twitter": "http://twitter.com/thebetajs",
+        "blog": "https://blog.betajs.com",
+        "twitter": "https://twitter.com/thebetajs",
         "guid": "1f507e0c-602b-4372-b067-4e19442f28f4",
         "installdoc": "docsrc/common/install.md",
         "summarydoc": "docsrc/common/summary.md",
