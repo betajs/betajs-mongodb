@@ -37,12 +37,17 @@ Scoped.define("module:MongoDatabase", [
                 return this.mongo_module.ObjectID;
             },
 
+            generate_object_id: function(id) {
+                return new this.mongo_module.ObjectID();
+            },
+
             mongodb: function() {
                 if (this.__mongodb)
                     return Promise.value(this.__mongodb);
                 var promise = Promise.create();
                 this.mongo_module.MongoClient.connect('mongodb://' + this.__dbUri, {
-                    autoReconnect: true
+                    autoReconnect: true,
+                    useNewUrlParser: true
                 }, promise.asyncCallbackFunc());
                 return promise.mapSuccess(function(client) {
                     this.__mongodb = client.db(this.__dbObject.database);

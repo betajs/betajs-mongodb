@@ -1,5 +1,5 @@
 /*!
-betajs-mongodb - v1.0.10 - 2018-10-26
+betajs-mongodb - v1.0.10 - 2018-10-30
 Copyright (c) Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1006,7 +1006,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-mongodb - v1.0.10 - 2018-10-26
+betajs-mongodb - v1.0.10 - 2018-10-30
 Copyright (c) Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -1020,7 +1020,7 @@ Scoped.define("module:", function () {
 	return {
     "guid": "1f507e0c-602b-4372-b067-4e19442f28f4",
     "version": "1.0.10",
-    "datetime": 1540584557468
+    "datetime": 1540910385696
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -1131,7 +1131,13 @@ Scoped.define("module:MongoDatabaseTable", [
 
             _removeRow: function(query) {
                 return this.table().mapSuccess(function(table) {
-                    return Promise.funcCallback(table, table.remove, query);
+                    return Promise.funcCallback(table, table.deleteOne, query);
+                }, this);
+            },
+
+            _removeRows: function(query) {
+                return this.table().mapSuccess(function(table) {
+                    return Promise.funcCallback(table, table.deleteMany, query);
                 }, this);
             },
 
@@ -1201,12 +1207,17 @@ Scoped.define("module:MongoDatabase", [
                 return this.mongo_module.ObjectID;
             },
 
+            generate_object_id: function(id) {
+                return new this.mongo_module.ObjectID();
+            },
+
             mongodb: function() {
                 if (this.__mongodb)
                     return Promise.value(this.__mongodb);
                 var promise = Promise.create();
                 this.mongo_module.MongoClient.connect('mongodb://' + this.__dbUri, {
-                    autoReconnect: true
+                    autoReconnect: true,
+                    useNewUrlParser: true
                 }, promise.asyncCallbackFunc());
                 return promise.mapSuccess(function(client) {
                     this.__mongodb = client.db(this.__dbObject.database);
