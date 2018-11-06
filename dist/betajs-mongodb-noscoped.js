@@ -1,5 +1,5 @@
 /*!
-betajs-mongodb - v1.0.11 - 2018-11-06
+betajs-mongodb - v1.0.12 - 2018-11-06
 Copyright (c) Oliver Friedmann
 Apache-2.0 Software License.
 */
@@ -12,7 +12,7 @@ Scoped.binding('data', 'global:BetaJS.Data');
 Scoped.define("module:", function () {
 	return {
     "guid": "1f507e0c-602b-4372-b067-4e19442f28f4",
-    "version": "1.0.11"
+    "version": "1.0.12"
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');

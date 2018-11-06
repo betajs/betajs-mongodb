@@ -1,6 +1,6 @@
 {
     "name": "betajs-mongodb",
-    "version": "1.0.11",
+    "version": "1.0.12",
     "description": "BetaJS-MongoDB is a MongoDB wrapper for BetaJS.",
     "contributors": [
         "Oliver Friedmann"
