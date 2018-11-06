@@ -80,11 +80,11 @@ Once you have instantiated your `database` instance, you can create a correspond
 ## Links
 | Resource   | URL |
 | :--------- | --: |
-| Homepage   | [https://betajs.com](https://betajs.com) |
+| Homepage   | [http://betajs.com](http://betajs.com) |
 | Git        | [git://github.com/betajs/betajs-mongodb.git](git://github.com/betajs/betajs-mongodb.git) |
 | Repository | [https://github.com/betajs/betajs-mongodb](https://github.com/betajs/betajs-mongodb) |
-| Blog       | [https://blog.betajs.com](https://blog.betajs.com) | 
-| Twitter    | [https://twitter.com/thebetajs](https://twitter.com/thebetajs) | 
+| Blog       | [http://blog.betajs.com](http://blog.betajs.com) | 
+| Twitter    | [http://twitter.com/thebetajs](http://twitter.com/thebetajs) | 
  
 
 

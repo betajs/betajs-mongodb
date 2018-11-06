@@ -12,6 +12,7 @@ Scoped.define("module:MongoDatabaseTable", [
 
             constructor: function() {
                 inherited.constructor.apply(this, arguments);
+                this._table_options = this._table_options || [];
                 this._table_options.idkeys = this._table_options.idkeys || [];
                 this._table_options.idkeys.unshift("_id");
                 this._table_options.datekeys = this._table_options.datekeys || [];
