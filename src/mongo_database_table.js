@@ -31,11 +31,20 @@ Scoped.define("module:MongoDatabaseTable", [
                 return "_id";
             },
 
-            _encode: function(data) {
+            _encode: function(data, valueType) {
                 if (!data)
                     return data;
-                data = Objs.map(data, function(value) {
-                    return value && Types.is_object(value) && !value._bsontype ? this._encode(value) : value;
+                data = Objs.map(data, function(value, k) {
+                    if (value && Types.is_object(value) && !value._bsontype) {
+                        this._table_options.datekeys.forEach(function(key) {
+                            if (key === k)
+                                valueType = "date";
+                        });
+                        return this._encode(value, valueType);
+                    }
+                    if (valueType === "date")
+                        return new Date(value);
+                    return value;
                 }, this);
                 var objid = this._database.mongo_object_id();
                 this._table_options.idkeys.forEach(function(key) {
