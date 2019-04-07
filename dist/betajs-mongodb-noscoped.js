@@ -1,6 +1,6 @@
 /*!
-betajs-mongodb - v1.0.12 - 2018-11-06
-Copyright (c) Oliver Friedmann
+betajs-mongodb - v1.0.13 - 2019-04-07
+Copyright (c) Oliver Friedmann,Pablo Iglesias
 Apache-2.0 Software License.
 */
 
@@ -12,7 +12,8 @@ Scoped.binding('data', 'global:BetaJS.Data');
 Scoped.define("module:", function () {
 	return {
     "guid": "1f507e0c-602b-4372-b067-4e19442f28f4",
-    "version": "1.0.12"
+    "version": "1.0.13",
+    "datetime": 1554679145535
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -117,7 +118,7 @@ Scoped.define("module:MongoDatabaseTable", [
 
             _insertRow: function(row) {
                 return this.table().mapSuccess(function(table) {
-                    return Promise.funcCallback(table, table.insertOne, row).mapSuccess(function(result) {
+                    return Promise.funcCallback(table, table.insertOne, row, this._database._options).mapSuccess(function(result) {
                         return row;
                     }, this);
                 }, this);
@@ -184,7 +185,7 @@ Scoped.define("module:MongoDatabase", [
     }, function(inherited) {
         return {
 
-            constructor: function(db) {
+            constructor: function(db, options) {
                 if (Types.is_string(db)) {
                     this.__dbUri = Strings.strip_start(db, "mongodb://");
                     this.__dbObject = this.cls.uriToObject(db);
@@ -197,6 +198,7 @@ Scoped.define("module:MongoDatabase", [
                     this.__dbObject = db;
                     this.__dbUri = this.cls.objectToUri(db);
                 }
+                this._options = options || {};
                 inherited.constructor.call(this);
                 this.mongo_module = require("mongodb");
             },

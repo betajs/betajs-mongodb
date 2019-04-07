@@ -12,7 +12,7 @@ Scoped.define("module:MongoDatabase", [
     }, function(inherited) {
         return {
 
-            constructor: function(db) {
+            constructor: function(db, options) {
                 if (Types.is_string(db)) {
                     this.__dbUri = Strings.strip_start(db, "mongodb://");
                     this.__dbObject = this.cls.uriToObject(db);
@@ -25,6 +25,7 @@ Scoped.define("module:MongoDatabase", [
                     this.__dbObject = db;
                     this.__dbUri = this.cls.objectToUri(db);
                 }
+                this._options = options || {};
                 inherited.constructor.call(this);
                 this.mongo_module = require("mongodb");
             },

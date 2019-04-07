@@ -98,7 +98,7 @@ Scoped.define("module:MongoDatabaseTable", [
 
             _insertRow: function(row) {
                 return this.table().mapSuccess(function(table) {
-                    return Promise.funcCallback(table, table.insertOne, row).mapSuccess(function(result) {
+                    return Promise.funcCallback(table, table.insertOne, row, this._database._options).mapSuccess(function(result) {
                         return row;
                     }, this);
                 }, this);
