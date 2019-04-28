@@ -28,6 +28,8 @@ Scoped.define("module:MongoDatabase", [
                 this._options = options || {};
                 inherited.constructor.call(this);
                 this.mongo_module = require("mongodb");
+                this.__mongo_promise = Promise.create();
+                this.__mongo_acquired = false;
             },
 
             _tableClass: function() {
@@ -43,18 +45,20 @@ Scoped.define("module:MongoDatabase", [
             },
 
             mongodb: function() {
-                if (this.__mongodb)
-                    return Promise.value(this.__mongodb);
-                var promise = Promise.create();
-                this.mongo_module.MongoClient.connect('mongodb://' + this.__dbUri, {
-                    autoReconnect: true,
-                    useNewUrlParser: true
-                }, promise.asyncCallbackFunc());
-                return promise.mapSuccess(function(client) {
-                    this.__mongodb = client.db(this.__dbObject.database);
-                    this.__client = client;
-                    return this.__mongodb;
-                }, this);
+                if (!this.__mongo_acquired) {
+                    this.__mongo_acquired = true;
+                    var promise = Promise.create();
+                    this.mongo_module.MongoClient.connect('mongodb://' + this.__dbUri, {
+                        autoReconnect: true,
+                        useNewUrlParser: true
+                    }, promise.asyncCallbackFunc());
+                    promise.success(function(client) {
+                        this.__mongodb = client.db(this.__dbObject.database);
+                        this.__client = client;
+                        this.__mongo_promise.asyncSuccess(this.__mongodb);
+                    }, this);
+                }
+                return this.__mongo_promise;
             },
 
             destroy: function() {

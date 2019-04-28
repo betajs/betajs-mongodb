@@ -1,5 +1,5 @@
 /*!
-betajs-mongodb - v1.0.13 - 2019-04-07
+betajs-mongodb - v1.0.14 - 2019-04-28
 Copyright (c) Oliver Friedmann,Pablo Iglesias
 Apache-2.0 Software License.
 */
@@ -1006,7 +1006,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-mongodb - v1.0.13 - 2019-04-07
+betajs-mongodb - v1.0.14 - 2019-04-28
 Copyright (c) Oliver Friedmann,Pablo Iglesias
 Apache-2.0 Software License.
 */
@@ -1019,8 +1019,8 @@ Scoped.binding('data', 'global:BetaJS.Data');
 Scoped.define("module:", function () {
 	return {
     "guid": "1f507e0c-602b-4372-b067-4e19442f28f4",
-    "version": "1.0.13",
-    "datetime": 1554679145535
+    "version": "1.0.14",
+    "datetime": 1556464354280
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -1208,6 +1208,8 @@ Scoped.define("module:MongoDatabase", [
                 this._options = options || {};
                 inherited.constructor.call(this);
                 this.mongo_module = require("mongodb");
+                this.__mongo_promise = Promise.create();
+                this.__mongo_acquired = false;
             },
 
             _tableClass: function() {
@@ -1223,18 +1225,20 @@ Scoped.define("module:MongoDatabase", [
             },
 
             mongodb: function() {
-                if (this.__mongodb)
-                    return Promise.value(this.__mongodb);
-                var promise = Promise.create();
-                this.mongo_module.MongoClient.connect('mongodb://' + this.__dbUri, {
-                    autoReconnect: true,
-                    useNewUrlParser: true
-                }, promise.asyncCallbackFunc());
-                return promise.mapSuccess(function(client) {
-                    this.__mongodb = client.db(this.__dbObject.database);
-                    this.__client = client;
-                    return this.__mongodb;
-                }, this);
+                if (!this.__mongo_acquired) {
+                    this.__mongo_acquired = true;
+                    var promise = Promise.create();
+                    this.mongo_module.MongoClient.connect('mongodb://' + this.__dbUri, {
+                        autoReconnect: true,
+                        useNewUrlParser: true
+                    }, promise.asyncCallbackFunc());
+                    promise.success(function(client) {
+                        this.__mongodb = client.db(this.__dbObject.database);
+                        this.__client = client;
+                        this.__mongo_promise.asyncSuccess(this.__mongodb);
+                    }, this);
+                }
+                return this.__mongo_promise;
             },
 
             destroy: function() {
