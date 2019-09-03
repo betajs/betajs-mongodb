@@ -79,7 +79,7 @@ Scoped.define("module:MongoDatabaseTable", [
                             result = result.sort(options.sort);
                         if ("skip" in options)
                             result = result.skip(options.skip);
-                        if ("limit" in options)
+                        if ("limit" in options && Types.isNumber(options.limit))
                             result = result.limit(options.limit);
                         return Promise.funcCallback(result, result.toArray).mapSuccess(function(cols) {
                             return new ArrayIterator(cols);
