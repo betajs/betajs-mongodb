@@ -1,5 +1,5 @@
 /*!
-betajs-mongodb - v1.0.15 - 2019-09-03
+betajs-mongodb - v1.0.16 - 2019-12-03
 Copyright (c) Oliver Friedmann,Pablo Iglesias
 Apache-2.0 Software License.
 */
@@ -12,8 +12,8 @@ Scoped.binding('data', 'global:BetaJS.Data');
 Scoped.define("module:", function () {
 	return {
     "guid": "1f507e0c-602b-4372-b067-4e19442f28f4",
-    "version": "1.0.15",
-    "datetime": 1567555188601
+    "version": "1.0.16",
+    "datetime": 1575408742984
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -221,10 +221,10 @@ Scoped.define("module:MongoDatabase", [
                 if (!this.__mongo_acquired) {
                     this.__mongo_acquired = true;
                     var promise = Promise.create();
-                    this.mongo_module.MongoClient.connect('mongodb://' + this.__dbUri, {
-                        autoReconnect: true,
-                        useNewUrlParser: true
-                    }, promise.asyncCallbackFunc());
+                    var options = Objs.extend(this._options, {
+                        useUnifiedTopology: true
+                    });
+                    this.mongo_module.MongoClient.connect('mongodb://' + this.__dbUri, options, promise.asyncCallbackFunc());
                     promise.success(function(client) {
                         this.__mongodb = client.db(this.__dbObject.database);
                         this.__client = client;

@@ -48,10 +48,10 @@ Scoped.define("module:MongoDatabase", [
                 if (!this.__mongo_acquired) {
                     this.__mongo_acquired = true;
                     var promise = Promise.create();
-                    this.mongo_module.MongoClient.connect('mongodb://' + this.__dbUri, {
-                        autoReconnect: true,
-                        useNewUrlParser: true
-                    }, promise.asyncCallbackFunc());
+                    var options = Objs.extend(this._options, {
+                        useUnifiedTopology: true
+                    });
+                    this.mongo_module.MongoClient.connect('mongodb://' + this.__dbUri, options, promise.asyncCallbackFunc());
                     promise.success(function(client) {
                         this.__mongodb = client.db(this.__dbObject.database);
                         this.__client = client;
