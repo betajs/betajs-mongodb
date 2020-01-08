@@ -1,5 +1,5 @@
 /*!
-betajs-mongodb - v1.0.16 - 2019-12-03
+betajs-mongodb - v1.0.17 - 2020-01-08
 Copyright (c) Oliver Friedmann,Pablo Iglesias
 Apache-2.0 Software License.
 */
@@ -12,8 +12,8 @@ Scoped.binding('data', 'global:BetaJS.Data');
 Scoped.define("module:", function () {
 	return {
     "guid": "1f507e0c-602b-4372-b067-4e19442f28f4",
-    "version": "1.0.16",
-    "datetime": 1575408742984
+    "version": "1.0.17",
+    "datetime": 1578500305273
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -185,19 +185,10 @@ Scoped.define("module:MongoDatabase", [
     }, function(inherited) {
         return {
 
-            constructor: function(db, options) {
-                if (Types.is_string(db)) {
-                    this.__dbUri = Strings.strip_start(db, "mongodb://");
-                    this.__dbObject = this.cls.uriToObject(db);
-                } else {
-                    db = Objs.extend({
-                        database: "database",
-                        server: "localhost",
-                        port: 27017
-                    }, db);
-                    this.__dbObject = db;
-                    this.__dbUri = this.cls.objectToUri(db);
-                }
+            constructor: function(dbUri, options) {
+                this.__dbUri = dbUri;
+                var parsed = Uri.parse(dbUri.replace(/,[^\/]+/, ""));
+                this.__databaseName = Strings.strip_start(parsed.path, "/");
                 this._options = options || {};
                 inherited.constructor.call(this);
                 this.mongo_module = require("mongodb");
@@ -222,11 +213,12 @@ Scoped.define("module:MongoDatabase", [
                     this.__mongo_acquired = true;
                     var promise = Promise.create();
                     var options = Objs.extend(this._options, {
-                        useUnifiedTopology: true
+                        useUnifiedTopology: true,
+                        useNewUrlParser: true
                     });
-                    this.mongo_module.MongoClient.connect('mongodb://' + this.__dbUri, options, promise.asyncCallbackFunc());
+                    this.mongo_module.MongoClient.connect(this.__dbUri, options, promise.asyncCallbackFunc());
                     promise.success(function(client) {
-                        this.__mongodb = client.db(this.__dbObject.database);
+                        this.__mongodb = client.db(this.__databaseName);
                         this.__client = client;
                         this.__mongo_promise.asyncSuccess(this.__mongodb);
                     }, this);
@@ -241,26 +233,6 @@ Scoped.define("module:MongoDatabase", [
             }
 
         };
-
-    }, {
-
-        uriToObject: function(uri) {
-            // Do not confuse URI parsing when multiple hosts are giving
-            uri = uri.replace(/,[^\/]+/, "");
-            var parsed = Uri.parse(uri);
-            return {
-                database: Strings.strip_start(parsed.path, "/"),
-                server: parsed.host,
-                port: parsed.port,
-                username: parsed.user,
-                password: parsed.password
-            };
-        },
-
-        objectToUri: function(object) {
-            object.path = object.database;
-            return Uri.build(object);
-        }
 
     });
 });
