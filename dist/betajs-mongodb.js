@@ -1,5 +1,5 @@
 /*!
-betajs-mongodb - v1.0.17 - 2020-01-08
+betajs-mongodb - v1.0.18 - 2020-09-16
 Copyright (c) Oliver Friedmann,Pablo Iglesias
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-mongodb - v1.0.17 - 2020-01-08
+betajs-mongodb - v1.0.18 - 2020-09-16
 Copyright (c) Oliver Friedmann,Pablo Iglesias
 Apache-2.0 Software License.
 */
@@ -1023,8 +1023,8 @@ Scoped.binding('data', 'global:BetaJS.Data');
 Scoped.define("module:", function () {
 	return {
     "guid": "1f507e0c-602b-4372-b067-4e19442f28f4",
-    "version": "1.0.17",
-    "datetime": 1578500305273
+    "version": "1.0.18",
+    "datetime": 1600263002105
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -1161,6 +1161,14 @@ Scoped.define("module:MongoDatabaseTable", [
                         "$set": row
                     }).mapSuccess(function() {
                         return row;
+                    });
+                }, this);
+            },
+
+            updateRows: function(query, row) {
+                return this.table().mapSuccess(function(table) {
+                    return Promise.funcCallback(table, table.updateMany, query, {
+                        "$set": row
                     });
                 }, this);
             },

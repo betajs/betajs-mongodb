@@ -134,6 +134,14 @@ Scoped.define("module:MongoDatabaseTable", [
                 }, this);
             },
 
+            updateRows: function(query, row) {
+                return this.table().mapSuccess(function(table) {
+                    return Promise.funcCallback(table, table.updateMany, query, {
+                        "$set": row
+                    });
+                }, this);
+            },
+
             ensureIndex: function(key) {
                 var obj = {};
                 obj[key] = 1;
