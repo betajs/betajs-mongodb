@@ -48,11 +48,11 @@ Scoped.define("module:MongoDatabaseTable", [
                 }, this);
                 var objid = this._database.mongo_object_id();
                 this._table_options.idkeys.forEach(function(key) {
-                    if (key in data && !Types.is_object(data[key]))
+                    if (key in data && !Types.is_null(data[key]) && !Types.is_object(data[key]))
                         data[key] = new objid(data[key] + "");
                 }, this);
                 this._table_options.datekeys.forEach(function(key) {
-                    if (key in data && !Types.is_object(data[key]))
+                    if (key in data && !Types.is_null(data[key]) && !Types.is_object(data[key]))
                         data[key] = new Date(data[key]);
                 }, this);
                 return data;
@@ -61,11 +61,11 @@ Scoped.define("module:MongoDatabaseTable", [
             _decode: function(data) {
                 data = Objs.clone(data, 1);
                 this._table_options.idkeys.forEach(function(key) {
-                    if (key in data && Types.is_object(data[key]))
+                    if (key in data && Types.is_object_instance(data[key]))
                         data[key] = data[key] + "";
                 }, this);
                 this._table_options.datekeys.forEach(function(key) {
-                    if (key in data && Types.is_object(data[key]))
+                    if (key in data && Types.is_object_instance(data[key]))
                         data[key] = data[key].getTime();
                 }, this);
                 return data;
