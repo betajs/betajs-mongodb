@@ -126,13 +126,12 @@ Scoped.define("module:MongoDatabaseTable", [
 
             _updateRow: function(query, row) {
                 return this.table().mapSuccess(function(table) {
-                    var updateOp;
-                    if (!Objs.keys(row)[0].startsWith("$")) {
+                    var updateOp = row;
+                    var keys = Objs.keys(row);
+                    if (keys.length === 0 || !keys[0].startsWith("$")) {
                         updateOp = {
                             "$set": row
                         };
-                    } else {
-                        updateOp = row;
                     }
                     return Promise.funcCallback(table, table.updateOne, query, updateOp).mapSuccess(function() {
                         return row;

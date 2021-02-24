@@ -1,5 +1,5 @@
 /*!
-betajs-mongodb - v1.0.19 - 2021-01-19
+betajs-mongodb - v1.0.20 - 2021-02-24
 Copyright (c) Oliver Friedmann,Pablo Iglesias
 Apache-2.0 Software License.
 */
@@ -12,8 +12,8 @@ Scoped.binding('data', 'global:BetaJS.Data');
 Scoped.define("module:", function () {
 	return {
     "guid": "1f507e0c-602b-4372-b067-4e19442f28f4",
-    "version": "1.0.19",
-    "datetime": 1611084557654
+    "version": "1.0.20",
+    "datetime": 1614204567859
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -146,10 +146,17 @@ Scoped.define("module:MongoDatabaseTable", [
 
             _updateRow: function(query, row) {
                 return this.table().mapSuccess(function(table) {
-                    return Promise.funcCallback(table, table.updateOne, query, {
-                        "$set": row
-                    }).mapSuccess(function() {
+                    var updateOp = row;
+                    var keys = Objs.keys(row);
+                    if (keys.length === 0 || !keys[0].startsWith("$")) {
+                        updateOp = {
+                            "$set": row
+                        };
+                    }
+                    return Promise.funcCallback(table, table.updateOne, query, updateOp).mapSuccess(function() {
                         return row;
+                    }).mapError(function(err) {
+                        return err;
                     });
                 }, this);
             },
