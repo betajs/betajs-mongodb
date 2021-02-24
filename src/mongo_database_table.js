@@ -126,10 +126,18 @@ Scoped.define("module:MongoDatabaseTable", [
 
             _updateRow: function(query, row) {
                 return this.table().mapSuccess(function(table) {
-                    return Promise.funcCallback(table, table.updateOne, query, {
-                        "$set": row
-                    }).mapSuccess(function() {
+                    var updateOp;
+                    if (!Objs.keys(row)[0].startsWith("$")) {
+                        updateOp = {
+                            "$set": row
+                        };
+                    } else {
+                        updateOp = row;
+                    }
+                    return Promise.funcCallback(table, table.updateOne, query, updateOp).mapSuccess(function() {
                         return row;
+                    }).mapError(function(err) {
+                        return err;
                     });
                 }, this);
             },
