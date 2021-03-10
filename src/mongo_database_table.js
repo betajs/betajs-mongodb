@@ -36,14 +36,16 @@ Scoped.define("module:MongoDatabaseTable", [
                     return data;
                 data = Objs.map(data, function(value, k) {
                     if (value && Types.is_object(value) && !value._bsontype) {
-                        this._table_options.datekeys.forEach(function(key) {
-                            if (key === k)
-                                valueType = "date";
-                        });
-                        return this._encode(value, valueType);
+                        if (this._table_options.datekeys.includes(k)) {
+                            valueType = "date";
+                        }
+                        value = this._encode(value, valueType);
+                        valueType = null;
                     }
-                    if (valueType === "date")
-                        return new Date(value);
+                    if (valueType === "date") {
+                        value = new Date(value);
+                        valueType = null;
+                    }
                     return value;
                 }, this);
                 var objid = this._database.mongo_object_id();
@@ -73,14 +75,7 @@ Scoped.define("module:MongoDatabaseTable", [
 
             _find: function(query, options) {
                 return this.table().mapSuccess(function(table) {
-                    return Promise.funcCallback(table, table.find, query).mapSuccess(function(result) {
-                        options = options || {};
-                        if ("sort" in options)
-                            result = result.sort(options.sort);
-                        if ("skip" in options)
-                            result = result.skip(options.skip);
-                        if ("limit" in options && Types.isNumber(options.limit))
-                            result = result.limit(options.limit);
+                    return Promise.funcCallback(table, table.find, query, options).mapSuccess(function(result) {
                         return Promise.funcCallback(result, result.toArray).mapSuccess(function(cols) {
                             return new ArrayIterator(cols);
                         }, this);
