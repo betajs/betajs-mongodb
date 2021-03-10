@@ -74,6 +74,8 @@ Scoped.define("module:MongoDatabaseTable", [
             },
 
             _find: function(query, options) {
+                if ("limit" in options && !Types.isNumber(options.limit))
+                    delete options.limit;
                 return this.table().mapSuccess(function(table) {
                     return Promise.funcCallback(table, table.find, query, options).mapSuccess(function(result) {
                         return Promise.funcCallback(result, result.toArray).mapSuccess(function(cols) {

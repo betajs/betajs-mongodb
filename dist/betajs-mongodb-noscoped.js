@@ -13,7 +13,7 @@ Scoped.define("module:", function () {
 	return {
     "guid": "1f507e0c-602b-4372-b067-4e19442f28f4",
     "version": "1.0.21",
-    "datetime": 1615377532986
+    "datetime": 1615410189645
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -94,6 +94,8 @@ Scoped.define("module:MongoDatabaseTable", [
             },
 
             _find: function(query, options) {
+                if ("limit" in options && !Types.isNumber(options.limit))
+                    delete options.limit;
                 return this.table().mapSuccess(function(table) {
                     return Promise.funcCallback(table, table.find, query, options).mapSuccess(function(result) {
                         return Promise.funcCallback(result, result.toArray).mapSuccess(function(cols) {
