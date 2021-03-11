@@ -1,5 +1,5 @@
 /*!
-betajs-mongodb - v1.0.20 - 2021-02-24
+betajs-mongodb - v1.0.21 - 2021-03-10
 Copyright (c) Oliver Friedmann,Pablo Iglesias
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-mongodb - v1.0.20 - 2021-02-24
+betajs-mongodb - v1.0.21 - 2021-03-10
 Copyright (c) Oliver Friedmann,Pablo Iglesias
 Apache-2.0 Software License.
 */
@@ -1023,8 +1023,8 @@ Scoped.binding('data', 'global:BetaJS.Data');
 Scoped.define("module:", function () {
 	return {
     "guid": "1f507e0c-602b-4372-b067-4e19442f28f4",
-    "version": "1.0.20",
-    "datetime": 1614204567859
+    "version": "1.0.21",
+    "datetime": 1615410189645
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -1067,14 +1067,16 @@ Scoped.define("module:MongoDatabaseTable", [
                     return data;
                 data = Objs.map(data, function(value, k) {
                     if (value && Types.is_object(value) && !value._bsontype) {
-                        this._table_options.datekeys.forEach(function(key) {
-                            if (key === k)
-                                valueType = "date";
-                        });
-                        return this._encode(value, valueType);
+                        if (this._table_options.datekeys.includes(k)) {
+                            valueType = "date";
+                        }
+                        value = this._encode(value, valueType);
+                        valueType = null;
                     }
-                    if (valueType === "date")
-                        return new Date(value);
+                    if (valueType === "date") {
+                        value = new Date(value);
+                        valueType = null;
+                    }
                     return value;
                 }, this);
                 var objid = this._database.mongo_object_id();
@@ -1103,15 +1105,10 @@ Scoped.define("module:MongoDatabaseTable", [
             },
 
             _find: function(query, options) {
+                if ("limit" in options && !Types.isNumber(options.limit))
+                    delete options.limit;
                 return this.table().mapSuccess(function(table) {
-                    return Promise.funcCallback(table, table.find, query).mapSuccess(function(result) {
-                        options = options || {};
-                        if ("sort" in options)
-                            result = result.sort(options.sort);
-                        if ("skip" in options)
-                            result = result.skip(options.skip);
-                        if ("limit" in options && Types.isNumber(options.limit))
-                            result = result.limit(options.limit);
+                    return Promise.funcCallback(table, table.find, query, options).mapSuccess(function(result) {
                         return Promise.funcCallback(result, result.toArray).mapSuccess(function(cols) {
                             return new ArrayIterator(cols);
                         }, this);
