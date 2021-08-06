@@ -45,7 +45,7 @@
     "dependencies": {
         "betajs": "~1.0.96",
         "betajs-data": "~1.0.41",
-        "mongodb": ""
+        "mongodb": "^3.6.6"
     },
     "scripts": {
         "relink": "npm link betajs betajs-compile betajs-scoped betajs-data",
