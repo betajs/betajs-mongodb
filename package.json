@@ -15,7 +15,7 @@
         "url": "https://github.com/betajs/betajs-mongodb/issues"
     },
     "name": "betajs-mongodb",
-    "version": "1.0.21",
+    "version": "1.0.23",
     "description": "BetaJS-MongoDB is a MongoDB wrapper for BetaJS.",
     "contributors": [
         "Oliver Friedmann",
@@ -48,7 +48,7 @@
     "dependencies": {
         "betajs": "~1.0.96",
         "betajs-data": "~1.0.41",
-        "mongodb": ""
+        "mongodb": "~4.1.0"
     },
     "scripts": {
         "relink": "npm link betajs betajs-compile betajs-scoped betajs-data",

@@ -1,5 +1,5 @@
 /*!
-betajs-mongodb - v1.0.21 - 2021-12-10
+betajs-mongodb - v1.0.22 - 2021-12-10
 Copyright (c) Oliver Friedmann,Pablo Iglesias
 Apache-2.0 Software License.
 */
@@ -12,8 +12,8 @@ Scoped.binding('data', 'global:BetaJS.Data');
 Scoped.define("module:", function () {
 	return {
     "guid": "1f507e0c-602b-4372-b067-4e19442f28f4",
-    "version": "1.0.21",
-    "datetime": 1639154687583
+    "version": "1.0.22",
+    "datetime": 1639154925547
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
