@@ -1,5 +1,5 @@
 /*!
-betajs-mongodb - v1.0.21 - 2021-03-10
+betajs-mongodb - v1.0.21 - 2021-12-10
 Copyright (c) Oliver Friedmann,Pablo Iglesias
 Apache-2.0 Software License.
 */
@@ -13,7 +13,7 @@ Scoped.define("module:", function () {
 	return {
     "guid": "1f507e0c-602b-4372-b067-4e19442f28f4",
     "version": "1.0.21",
-    "datetime": 1615410189645
+    "datetime": 1639154687583
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -48,7 +48,7 @@ Scoped.define("module:MongoDatabaseTable", [
             },
 
             primary_key: function() {
-                return "_id";
+                return this._table_options._primary_key || "_id";
             },
 
             _encode: function(data, valueType) {
@@ -97,18 +97,24 @@ Scoped.define("module:MongoDatabaseTable", [
                 if ("limit" in options && !Types.isNumber(options.limit))
                     delete options.limit;
                 return this.table().mapSuccess(function(table) {
-                    return Promise.funcCallback(table, table.find, query, options).mapSuccess(function(result) {
-                        return Promise.funcCallback(result, result.toArray).mapSuccess(function(cols) {
-                            return new ArrayIterator(cols);
+                    if (query[this.primary_key()]) {
+                        return Promise.funcCallback(table, table.findOne, query, options).mapSuccess(function(result) {
+                            return new ArrayIterator([result]);
                         }, this);
-                    }, this);
+                    } else {
+                        return Promise.box(table.find, table, [query, options]).mapSuccess(function(result) {
+                            return Promise.funcCallback(result, result.toArray).mapSuccess(function(cols) {
+                                return new ArrayIterator(cols);
+                            }, this);
+                        }, this);
+                    }
                 }, this);
             },
 
             _count: function(query) {
                 return this.table().mapSuccess(function(table) {
-                    return Promise.funcCallback(table, table.find, query).mapSuccess(function(result) {
-                        return Promise.funcCallback(result, result.count);
+                    return Promise.funcCallback(table, table.count, query).mapSuccess(function(result) {
+                        return Promise.value(result);
                     });
                 });
             },
@@ -213,11 +219,11 @@ Scoped.define("module:MongoDatabase", [
             },
 
             mongo_object_id: function(id) {
-                return this.mongo_module.ObjectID;
+                return this.mongo_module.ObjectId;
             },
 
             generate_object_id: function(id) {
-                return new this.mongo_module.ObjectID();
+                return new this.mongo_module.ObjectId();
             },
 
             mongodb: function() {

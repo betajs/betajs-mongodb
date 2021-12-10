@@ -21,7 +21,6 @@ module.exports = function(grunt) {
 		.uglifyTask('uglify-scoped', 'dist/' + dist + '.js', 'dist/' + dist + '.min.js')
 		.packageTask()
         .jsbeautifyTask(null, "src/*.js")
-        .qunitjsTask(null, 'tests/qunitjs-node.js')
 
 		/* Testing */
 		.closureTask(null, [require.resolve("betajs-scoped"), require.resolve("betajs"), require.resolve("betajs-data"), "./dist/betajs-sql-noscoped.js"])
@@ -42,7 +41,7 @@ module.exports = function(grunt) {
 	grunt.initConfig(gruntHelper.config);
 
 	grunt.registerTask('default', ['autoincreasepackage', 'package', 'githook', 'readme', 'license', 'codeclimate', 'jsbeautify', 'scopedclosurerevision', 'concat-scoped', 'uglify-noscoped', 'uglify-scoped']);
-	grunt.registerTask('check', [ 'lint', 'qunitjs' ]);
+	grunt.registerTask('check', [ 'lint' ]);
 
 };
 

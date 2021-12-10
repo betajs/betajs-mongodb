@@ -6,3 +6,4 @@ node_modules
 docs
 *.log
 package-lock.json
+.nyc_output
