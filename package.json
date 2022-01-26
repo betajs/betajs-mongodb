@@ -15,41 +15,45 @@
         "url": "https://github.com/betajs/betajs-mongodb/issues"
     },
     "name": "betajs-mongodb",
-    "version": "1.0.22",
+    "version": "1.0.24",
     "description": "BetaJS-MongoDB is a MongoDB wrapper for BetaJS.",
     "contributors": [
         "Oliver Friedmann",
         "Pablo Iglesias"
     ],
     "devDependencies": {
-        "lodash": "",
+        "betajs-compile": "~0.0.28",
+        "betajs-scoped": "~0.0.13",
+        "chai": "^4.3.4",
+        "chai-as-promised": "^7.1.1",
         "grunt": "",
-        "grunt-contrib-jshint": "",
-        "grunt-contrib-concat": "",
-        "grunt-contrib-uglify": "^4.0.0",
-        "grunt-contrib-clean": "",
-        "grunt-preprocess": "",
-        "grunt-git-revision-count": "",
+        "grunt-betajs-docs-compile": "",
         "grunt-closure-tools": "",
-        "qunitjs": "",
-        "grunt-wget": "",
+        "grunt-contrib-clean": "",
+        "grunt-contrib-concat": "",
+        "grunt-contrib-jshint": "",
+        "grunt-contrib-uglify": "^4.0.0",
+        "grunt-git-revision-count": "",
+        "grunt-githooks": "",
         "grunt-jsdoc": "",
+        "grunt-preprocess": "",
         "grunt-shell": "",
         "grunt-template": "",
-        "grunt-githooks": "",
-        "grunt-betajs-docs-compile": "",
-        "betajs-scoped": "~0.0.13",
-        "betajs-compile": "~0.0.28",
-        "js-beautify": ""
+        "grunt-wget": "",
+        "js-beautify": "",
+        "lodash": "",
+        "mocha": "^9.1.3",
+        "nyc": "^15.1.0"
     },
     "dependencies": {
         "betajs": "~1.0.96",
         "betajs-data": "~1.0.41",
-        "mongodb": "^3.6.6"
+        "mongodb": "~4.1.0"
     },
     "scripts": {
         "relink": "npm link betajs betajs-compile betajs-scoped betajs-data",
-        "reinstall": "rm -f package-lock.json && rm -rf node_modules && npm i && npm run relink"
+        "reinstall": "rm -f package-lock.json && rm -rf node_modules && npm i && npm run relink",
+        "test": "nyc mocha --exit"
     },
     "repository": {
         "type": "git",

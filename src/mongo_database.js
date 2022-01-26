@@ -28,11 +28,11 @@ Scoped.define("module:MongoDatabase", [
             },
 
             mongo_object_id: function(id) {
-                return this.mongo_module.ObjectID;
+                return this.mongo_module.ObjectId;
             },
 
             generate_object_id: function(id) {
-                return new this.mongo_module.ObjectID();
+                return new this.mongo_module.ObjectId();
             },
 
             mongodb: function() {

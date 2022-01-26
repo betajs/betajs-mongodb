@@ -28,7 +28,7 @@ Scoped.define("module:MongoDatabaseTable", [
             },
 
             primary_key: function() {
-                return "_id";
+                return this._table_options._primary_key || "_id";
             },
 
             _encode: function(data, valueType) {
@@ -77,25 +77,31 @@ Scoped.define("module:MongoDatabaseTable", [
                 if ("limit" in options && !Types.isNumber(options.limit))
                     delete options.limit;
                 return this.table().mapSuccess(function(table) {
-                    return Promise.funcCallback(table, table.find, query, options).mapSuccess(function(result) {
-                        return Promise.funcCallback(result, result.toArray).mapSuccess(function(cols) {
-                            return new ArrayIterator(cols);
+                    if (query[this.primary_key()]) {
+                        return Promise.fromNativePromise(table.findOne(query, options)).mapSuccess(function(result) {
+                            return new ArrayIterator([result]);
                         }, this);
-                    }, this);
+                    } else {
+                        return Promise.box(table.find, table, [query, options]).mapSuccess(function(result) {
+                            return Promise.fromNativePromise(result.toArray()).mapSuccess(function(cols) {
+                                return new ArrayIterator(cols);
+                            }, this);
+                        }, this);
+                    }
                 }, this);
             },
 
             _count: function(query) {
                 return this.table().mapSuccess(function(table) {
-                    return Promise.funcCallback(table, table.find, query).mapSuccess(function(result) {
-                        return Promise.funcCallback(result, result.count);
+                    return Promise.fromNativePromise(table.count(query)).mapSuccess(function(result) {
+                        return Promise.value(result);
                     });
                 });
             },
 
             _insertRow: function(row) {
                 return this.table().mapSuccess(function(table) {
-                    return Promise.funcCallback(table, table.insertOne, row, this._database._options).mapSuccess(function(result) {
+                    return Promise.fromNativePromise(table.insertOne(row, this._database._options)).mapSuccess(function(result) {
                         return row;
                     }, this);
                 }, this);
@@ -103,7 +109,7 @@ Scoped.define("module:MongoDatabaseTable", [
 
             _insertRows: function(rows) {
                 return this.table().mapSuccess(function(table) {
-                    return Promise.funcCallback(table, table.insertMany, rows).mapSuccess(function(result) {
+                    return Promise.fromNativePromise(table.insertMany(rows)).mapSuccess(function(result) {
                         return row;
                     }, this);
                 }, this);
@@ -111,13 +117,13 @@ Scoped.define("module:MongoDatabaseTable", [
 
             _removeRow: function(query) {
                 return this.table().mapSuccess(function(table) {
-                    return Promise.funcCallback(table, table.deleteOne, query);
+                    return Promise.fromNativePromise(table.deleteOne(query));
                 }, this);
             },
 
             _removeRows: function(query) {
                 return this.table().mapSuccess(function(table) {
-                    return Promise.funcCallback(table, table.deleteMany, query);
+                    return Promise.fromNativePromise(table.deleteMany(query));
                 }, this);
             },
 
@@ -130,7 +136,7 @@ Scoped.define("module:MongoDatabaseTable", [
                             "$set": row
                         };
                     }
-                    return Promise.funcCallback(table, table.updateOne, query, updateOp).mapSuccess(function() {
+                    return Promise.fromNativePromise(table.updateOne(query, updateOp)).mapSuccess(function() {
                         return row;
                     }).mapError(function(err) {
                         return err;
@@ -140,9 +146,9 @@ Scoped.define("module:MongoDatabaseTable", [
 
             updateRows: function(query, row) {
                 return this.table().mapSuccess(function(table) {
-                    return Promise.funcCallback(table, table.updateMany, query, {
+                    return Promise.fromNativePromise(table.updateMany(query, {
                         "$set": row
-                    });
+                    }));
                 }, this);
             },
 
@@ -156,7 +162,7 @@ Scoped.define("module:MongoDatabaseTable", [
 
             _renameTable: function(newName) {
                 return this.table().mapSuccess(function(table) {
-                    return Promise.funcCallback(table, table.rename, newName);
+                    return Promise.fromNativePromise(table.rename(newName));
                 });
             }
 
